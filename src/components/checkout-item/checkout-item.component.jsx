@@ -1,6 +1,6 @@
-import { connect } from 'react-redux';
+import { useContext } from 'react';
 
-import { addItem, removeItem, clearItem } from '../../redux/cart/cart.actions';
+import CartContext from '../../context/cart/cart.context';
 
 import { convertToPHPCurrency } from '../../components/component.utils.js';
 
@@ -9,7 +9,8 @@ import {
     CheckoutItemQty, CheckoutItemArrow, CheckoutItemRemove
 } from './checkout-item.styles';
 
-const CheckoutItem = ({ item, addItemToCart, removeItemFromCart, clearItemFromCart }) => {
+const CheckoutItem = ({ item }) => {
+    const { addItem, removeItem, clearItem } = useContext(CartContext);
     const { name, imageUrl, price, quantity } = item;
     const minQtyPerItem = 1;
     const maxQtyPerItem = 10;
@@ -22,20 +23,15 @@ const CheckoutItem = ({ item, addItemToCart, removeItemFromCart, clearItemFromCa
                 </CheckoutItemProduct>
             </td>
             <td>
-                <CheckoutItemArrow onClick={() => quantity > minQtyPerItem ? removeItemFromCart(item) : null}>&#10094;</CheckoutItemArrow>
+                <CheckoutItemArrow onClick={() => quantity > minQtyPerItem ? removeItem(item) : null}>&#10094;</CheckoutItemArrow>
                 <CheckoutItemQty>{quantity}</CheckoutItemQty>
-                <CheckoutItemArrow onClick={() => quantity < maxQtyPerItem ? addItemToCart(item) : null}>&#10095;</CheckoutItemArrow>
+                <CheckoutItemArrow onClick={() => quantity < maxQtyPerItem ? addItem(item) : null}>&#10095;</CheckoutItemArrow>
             </td>
             <td>{convertToPHPCurrency(price)}</td>
-            <td><CheckoutItemRemove onClick={() => clearItemFromCart(item)}>&#10005;</CheckoutItemRemove></td>
+            <td><CheckoutItemRemove onClick={() => clearItem(item)}>&#10005;</CheckoutItemRemove></td>
         </CheckoutItemContainer>
     )
 };
 
-const mapDispatchToProps = dispatch => ({
-    addItemToCart: item => dispatch(addItem(item)),
-    removeItemFromCart: item => dispatch(removeItem(item)),
-    clearItemFromCart: item => dispatch(clearItem(item))
-});
 
-export default connect(null, mapDispatchToProps)(CheckoutItem);
+export default CheckoutItem;

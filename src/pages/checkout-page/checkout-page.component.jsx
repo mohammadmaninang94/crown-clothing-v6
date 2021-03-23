@@ -1,30 +1,27 @@
-import { Fragment } from 'react';
-import { connect } from 'react-redux';
-import { createStructuredSelector } from 'reselect';
+import { Fragment, useContext } from 'react';
 
-import { selectCartItems, selectCartTotalPrice } from '../../redux/cart/cart.selectors';
+import CartContext from '../../context/cart/cart.context';
 
 import CheckoutTable from '../../components/checkout-table/checkout-table.component';
 import StripeButton from '../../components/stripe-button/stripe-button.component';
 
 import { CheckoutPageContainer, CheckoutPageEmpty, StripeButtonContainer } from './checkout-page.styles';
 
-const CheckoutPage = ({ cartItems, cartTotalPrice }) => (
-    <CheckoutPageContainer>
-        {cartTotalPrice ? (
-            <Fragment>
-                <CheckoutTable cartItems={cartItems} cartTotalPrice={cartTotalPrice} />
-                <StripeButtonContainer>
-                    <StripeButton total={cartTotalPrice} />
-                </StripeButtonContainer>
-            </Fragment>
-        ) : <CheckoutPageEmpty>You cart is empty</CheckoutPageEmpty>}
-    </CheckoutPageContainer>
-);
+const CheckoutPage = () => {
+    const { cartItems, cartTotalPrice } = useContext(CartContext);
 
-const mapStateToProps = createStructuredSelector({
-    cartItems: selectCartItems,
-    cartTotalPrice: selectCartTotalPrice
-})
+    return (
+        <CheckoutPageContainer>
+            {cartTotalPrice ? (
+                <Fragment>
+                    <CheckoutTable cartItems={cartItems} cartTotalPrice={cartTotalPrice} />
+                    <StripeButtonContainer>
+                        <StripeButton total={cartTotalPrice} />
+                    </StripeButtonContainer>
+                </Fragment>
+            ) : <CheckoutPageEmpty>You cart is empty</CheckoutPageEmpty>}
+        </CheckoutPageContainer>
+    )
+};
 
-export default connect(mapStateToProps)(CheckoutPage);
+export default CheckoutPage;

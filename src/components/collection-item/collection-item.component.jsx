@@ -1,6 +1,6 @@
-import { connect } from 'react-redux';
+import { useContext } from 'react';
 
-import { addItem } from '../../redux/cart/cart.actions';
+import CartContext from '../../context/cart/cart.context';
 
 import { convertToPHPCurrency } from '../component.utils';
 
@@ -10,8 +10,9 @@ import {
     CollectionItemPrice, CollectionItemButton
 } from './collection-item.styles';
 
-const CollectionItem = ({ item, addItem }) => {
+const CollectionItem = ({ item }) => {
     const { name, imageUrl, price } = item;
+    const { addItem } = useContext(CartContext);
     return (
         <CollectionItemContainer>
             <CollectionItemImg src={imageUrl} alt={name} />
@@ -26,8 +27,4 @@ const CollectionItem = ({ item, addItem }) => {
     )
 };
 
-const mapDispatchToProps = dispatch => ({
-    addItem: item => dispatch(addItem(item))
-});
-
-export default connect(null, mapDispatchToProps)(CollectionItem);
+export default CollectionItem;
