@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 
 import CartProvider from './providers/cart/cart.provider';
+import ShopProvider from './providers/shop/shop.provider';
 
 import App from './App';
 import reportWebVitals from './reportWebVitals';
@@ -12,9 +13,11 @@ import "./index.css";
 ReactDOM.render(
   <React.StrictMode>
     <CartProvider>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
+      <ShopProvider>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </ShopProvider>
     </CartProvider>
   </React.StrictMode>,
   document.getElementById('root')

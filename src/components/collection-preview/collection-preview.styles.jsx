@@ -8,6 +8,7 @@ export const CollectionPreviewTitle = styled.h2`
     font-size: 2.8rem;
     font-weight: 700;
     text-transform: uppercase;
+    cursor: pointer;
 `;
 
 export const CollectionPreviewItems = styled.div`

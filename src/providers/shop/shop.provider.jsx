@@ -13,11 +13,10 @@ const ShopProvider = ({ children }) => {
         collectionsSnapshot.get().then(snapshot => {
             const collectionsMap = convertCollectionsSnapshotToMap(snapshot);
             setCollections(collectionsMap);
-            setMessage('');
         }).catch(error => {
             setMessage(error.message);
         });
-    }, [setCollections]);
+    }, []);
 
     return (
         <ShopContext.Provider value={{

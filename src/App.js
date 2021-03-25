@@ -5,8 +5,6 @@ import { auth, createUserProfileDocument } from './firebase/firebase.utils';
 
 import userContext from './context/user/user.context';
 
-import ShopProvider from './providers/shop/shop.provider';
-
 import HomePage from './pages/home-page/home-page.component';
 import ShopPage from './pages/shop-page/shop-page.component';
 import SignInSignUpPage from './pages/sign-in-sign-up-page/sign-in-sign-up-page.component';
@@ -46,7 +44,7 @@ const App = () => {
       </userContext.Provider>
       <Switch>
         <Route exact path='/' render={() => <HomePage />} />
-        <Route path='/shop' render={routeProps => <ShopProvider><ShopPage {...routeProps}/></ShopProvider> } />
+        <Route path='/shop' render={routeProps => <ShopPage {...routeProps} />} />
         <Route exact path='/checkout' render={() => <CheckoutPage />} />
         <Route path='/signin' render={() =>
           currentUser ? (
